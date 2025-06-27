@@ -1,5 +1,4 @@
 import * as React from "react"
-
 import {
   Select,
   SelectContent,
@@ -9,9 +8,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-export function SelectDiagram() {
+export function SelectDiagram({ value, onValueChange }) {
   return (
-    <Select>
+    <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger className="w-[12rem] bg-white rounded-[0.2rem] shadow-none">
         <SelectValue placeholder="Diagram type" />
       </SelectTrigger>

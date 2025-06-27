@@ -10,9 +10,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-export function PhotoType() {
+export function PhotoType({ value, onValueChange }) {
   return (
-    <Select>
+    <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger className="w-[12rem] bg-white rounded-[0.2rem] shadow-none">
         <SelectValue placeholder="Image format" />
       </SelectTrigger>
