@@ -7,6 +7,7 @@ import { Button } from './ui/button';
 import { CodeEditor } from './CodeEditor';
 import { ScrollArea } from './ui/scroll-area';
 import { PhotoType } from './PhotoType';
+import { motion, spring } from 'motion/react'
 
 const CodeCanvas = () => {
   const [diagramText, setDiagramText] = useState(`digraph G {
@@ -17,6 +18,7 @@ const CodeCanvas = () => {
   const [diagramUrl, setDiagramUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isActive, setIsActive] = useState(false);
 
   // Default examples for each diagram type
   const examples = {
@@ -129,9 +131,21 @@ Rel(user, system, "Uses")
       <div className='container max-w-7xl mx-auto md:px-0 px-5'>
         {/* navbar */}
         <div className='py-4 flex items-center justify-between'>
+        <div className='flex items-center gap-2'>
+            <motion.div
+        onClick={() => setIsActive(!isActive)}
+        animate={{
+          rotate: isActive ? 180 : 0
+        }}
+        transition={{
+          type: spring,
+          damping: 10
+        }}
+        className='rounded-full text-black font-semibold items-center justify-center cursor-pointer'>{`</>`}</motion.div>
           <div className='bg-black text-white max-w-fit py-1 px-2 font-semibold tracking-tighter cursor-pointer text-sm'>
             <LetterSwapForward label="code canvas" staggerDuration={0} reverse={false} />
           </div>
+        </div>
           <div className='flex items-center gap-3'>
             <div className='text-[0.6rem] bg-neutral-300 font-semibold py-1 px-2 text-neutral-900 rounded-lg cursor-pointer'>
               <LetterSwapForward label="HOW TO USE" staggerDuration={0} reverse={false} />
