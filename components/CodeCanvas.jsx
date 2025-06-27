@@ -189,7 +189,7 @@ Rel(user, system, "Uses")
           </div>
         </div>
           <div className='flex items-center gap-3'>
-            <div className='text-[0.6rem] bg-neutral-300 font-semibold py-1 px-2 text-neutral-900 rounded-lg cursor-pointer'>
+            <div className='text-[0.6rem] bg-neutral-300 font-semibold py-1 px-2 text-neutral-900 rounded-[0.2rem] cursor-pointer'>
               <LetterSwapForward label="HOW TO USE" staggerDuration={0} reverse={false} />
             </div>
             <Link target='_blank' href='https://portfolio.sumona.tech/' className='text-black font-semibold uppercase text-xs tracking-tighter'>
