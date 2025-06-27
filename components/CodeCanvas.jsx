@@ -1,3 +1,4 @@
+import { saveAs } from 'file-saver';
 import React, { useState } from 'react';
 import axios from 'axios';
 import LetterSwapForward from './letter-swap-forward-anim';
@@ -43,6 +44,47 @@ System(system, "System")
 Rel(user, system, "Uses")
 @enduml`
   };
+
+  const saveDiagram = async () => {
+  if (!diagramUrl) return;
+
+  try {
+    let blob;
+    
+    if (outputFormat === 'svg') {
+      if (diagramUrl.startsWith('data:')) {
+        // Extract SVG from data URL
+        const svgData = decodeURIComponent(diagramUrl.split(',')[1]);
+        blob = new Blob([svgData], { type: 'image/svg+xml' });
+      } else {
+        // Download SVG from URL
+        const response = await axios.get(diagramUrl, { responseType: 'text' });
+        blob = new Blob([response.data], { type: 'image/svg+xml' });
+      }
+    } else {
+      // For PNG, we already have a blob URL or can fetch it
+      if (diagramUrl.startsWith('blob:')) {
+        // Convert blob URL to actual blob
+        const response = await fetch(diagramUrl);
+        blob = await response.blob();
+      } else {
+        // Download PNG from URL
+        const response = await axios.get(diagramUrl, { responseType: 'blob' });
+        blob = response.data;
+      }
+    }
+
+    // Generate filename
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const filename = `diagram-${timestamp}.${outputFormat}`;
+    
+    // Save the file
+    saveAs(blob, filename);
+  } catch (error) {
+    setError('Failed to save diagram. Please try again.');
+    console.error('Save error:', error);
+  }
+};
 
   const generateDiagram = async () => {
     setIsLoading(true);
@@ -200,6 +242,7 @@ Rel(user, system, "Uses")
                 <Button 
                   className='text-sm rounded-[0.2rem] cursor-pointer px-8 w-[12rem]'
                   disabled={!diagramUrl || isLoading}
+                  onClick={saveDiagram}
                 >
                   Save
                 </Button>
