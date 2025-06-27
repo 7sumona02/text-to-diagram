@@ -10,13 +10,10 @@ import {
 } from "@/components/ui/select"
 
 export function SelectDiagram() {
-      const [diagramType, setDiagramType] = useState('graphviz');
   return (
     <Select>
       <SelectTrigger className="w-[12rem] bg-white rounded-[0.2rem] shadow-none">
-        <SelectValue 
-        value={diagramType}
-        onChange={(e) => setDiagramType(e.target.value)} placeholder="Diagram type" />
+        <SelectValue placeholder="Diagram type" />
       </SelectTrigger>
       <SelectContent className='rounded-[0.2rem] shadow-none w-[12rem]'>
         <SelectGroup>
